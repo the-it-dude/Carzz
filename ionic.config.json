@@ -1,0 +1,7 @@
+{
+  "name": "Carzz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
