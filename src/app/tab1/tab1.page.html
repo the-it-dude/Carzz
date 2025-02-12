@@ -1,8 +1,14 @@
 <ion-header [translucent]="true">
+
   <ion-toolbar>
-    <ion-title>
-      Events
-    </ion-title>
+    <ion-segment value="favorites">
+      <ion-segment-button value="favorites">
+        <ion-label>Upcoming</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="all">
+        <ion-label>My</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 

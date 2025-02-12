@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CrzzService } from '../crzz.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage {
 		private router: Router,
   ) {}
 
-  async login(form: any) {
+  async login(form: NgForm) {
     this.crzzService.login(form.value.email, form.value.password).subscribe(
       async (_) => {
 				this.router.navigateByUrl('/tabs', { replaceUrl: true });

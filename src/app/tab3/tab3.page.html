@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      New Event
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,38 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
+      <ion-title size="large">Create new Event</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <form #form="ngForm" (ngSubmit)="create_event(form)">
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-select label="Event Type" aria-label="Event Type" value="cars_and_coffee">
+        <ion-select-option value="cars_and_coffee">Cars & Coffee</ion-select-option>
+        <ion-select-option value="meeting">Metting</ion-select-option>
+        <ion-select-option value="drive">Drive</ion-select-option>
+        <ion-select-option value="other">Other</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Event Title" labelPlacement="floating" [counter]="true" maxlength="20" ngModel name="title" required errorText="This field is required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Description" labelPlacement="stacked" placeholder="Enter text" name="description" required ngModel errorText="This field is required"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Event Location" labelPlacement="floating" [counter]="true" maxlength="120" name="location_name" required ngModel errorText="This field is required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-datetime presentation="date-time" [preferWheel]="true" name="date_time" ngModel required></ion-datetime>
+    </ion-item>
+    <ion-item>
+
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="form.invalid">Create Event</ion-button>
+
+  </ion-list>
+  </form>
+
 </ion-content>
