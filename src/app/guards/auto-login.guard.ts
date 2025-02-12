@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CrzzService } from '../crzz.service';
 import { filter, map, take } from 'rxjs/operators';
+import { CrzzService } from '../services/crzz.service';
 
 @Injectable({
   providedIn: 'root'

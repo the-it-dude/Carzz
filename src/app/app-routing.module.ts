@@ -6,7 +6,7 @@ import { AutoLoginGuard } from './guards/auto-login.guard';;
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
     canLoad: [AutoLoginGuard]
   },
   {
@@ -18,10 +18,6 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
-  {
-    path: 'event',
-    loadChildren: () => import('./event/event.module').then( m => m.EventPageModule)
   }
 ];
 @NgModule({

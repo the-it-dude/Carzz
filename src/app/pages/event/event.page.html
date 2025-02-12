@@ -3,7 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button default-href="#"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ event.title }}</ion-title>
+    <ion-title>
+      <ion-badge color="secondary" *ngIf="event.status == 'published'">PUBLIC</ion-badge>
+      <ion-badge color="warning" *ngIf="event.status == 'private'">PRIVATE</ion-badge>
+      <ion-badge color="danger" *ngIf="event.status == 'draft'">DRAFT</ion-badge>
+      {{ event.title }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CrzzService } from '../crzz.service';
+import { CrzzService } from '../../services/crzz.service';
 
 @Component({
   selector: 'app-settings',

@@ -16,7 +16,7 @@
   <form #form="ngForm" (ngSubmit)="create_event(form)">
   <ion-list [inset]="true">
     <ion-item>
-      <ion-select label="Event Type" aria-label="Event Type" value="cars_and_coffee">
+      <ion-select label="Event Type" aria-label="Event Type" name="event_type" [(ngModel)]="event_type">
         <ion-select-option value="cars_and_coffee">Cars & Coffee</ion-select-option>
         <ion-select-option value="meeting">Metting</ion-select-option>
         <ion-select-option value="drive">Drive</ion-select-option>
@@ -33,7 +33,7 @@
       <ion-input label="Event Location" labelPlacement="floating" [counter]="true" maxlength="120" name="location_name" required ngModel errorText="This field is required"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-datetime presentation="date-time" [preferWheel]="true" name="date_time" ngModel required></ion-datetime>
+      <ion-datetime min="{{ min_date }}" presentation="date-time" [preferWheel]="true" name="date_time" ngModel required></ion-datetime>
     </ion-item>
     <ion-item>
 

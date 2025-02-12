@@ -13,7 +13,6 @@ const TOKEN_NAME: string = "crzz_token"
 })
 export class CrzzService {
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  token = '';
   baseUrl:string = "http://localhost:4000";
 
   constructor(private httpClient : HttpClient) {
@@ -23,11 +22,21 @@ export class CrzzService {
   async loadToken() {
     const token = localStorage.getItem(TOKEN_NAME);
     if (token) {
-      this.token = token;
       this.isAuthenticated.next(true);
     } else {
       this.isAuthenticated.next(false);
     }
+  }
+
+  get_token() {
+    const token: string | null = localStorage.getItem(TOKEN_NAME)
+    // Redirect here?
+    return token as string
+  }
+
+  get_headers() {
+    const token: string = this.get_token()
+    return new HttpHeaders({"Authorization": "Bearer " + token})
   }
 
   login(username: string, password: string) {
@@ -37,7 +46,6 @@ export class CrzzService {
         map((data: any) => data.token),
         switchMap((token: string) => {
           console.log(token)
-          this.token = token;
           localStorage.setItem(TOKEN_NAME, token)
           return token
         }),
@@ -48,15 +56,16 @@ export class CrzzService {
   }
 
   logout() {
+    localStorage.removeItem(TOKEN_NAME)
     localStorage.clear()
   }
 
   load_events() {
-    const token: string | null = localStorage.getItem(TOKEN_NAME)
+    const headers: HttpHeaders = this.get_headers()
     return this.httpClient.get(
       this.baseUrl + "/api/events",
       {
-        headers: new HttpHeaders({"Authorization": "Bearer " + token})
+        headers: headers
       }
     ).pipe(
       map((data: any) => data.data)
@@ -64,12 +73,42 @@ export class CrzzService {
   }
 
   load_event(event_id: string) {
-    const token : string | null = localStorage.getItem(TOKEN_NAME)
-    console.log("loading event")
+    const headers: HttpHeaders = this.get_headers()
     return this.httpClient.get(
       this.baseUrl + "/api/events/" + event_id,
       {
-        headers: new HttpHeaders({"Authorization": "Bearer " + token})
+        headers: headers
+      }
+    ).pipe(
+      map((data: any) => data.data)
+    )
+  }
+
+  create_event(
+    event_type: string,
+    title: string,
+    description: string,
+    start_date: string,
+    start_time: string,
+    location_name: string
+  ) {
+    const data = {
+      event: {
+        status: "draft",
+        type: event_type,
+        title: title,
+        description: description,
+        start_date: start_date,
+        start_time: start_time,
+        location_name: location_name,
+      }
+    }
+    const headers = this.get_headers()
+    return this.httpClient.post(
+      this.baseUrl + "/api/events",
+      data,
+      {
+        headers: headers
       }
     ).pipe(
       map((data: any) => data.data)

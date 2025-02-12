@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CrzzService } from '../crzz.service';
+import { CrzzService } from '../../services/crzz.service';
 
 @Component({
   selector: 'app-event',
