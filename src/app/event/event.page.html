@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ event.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <img alt="Silhouette of mountains" src="http://localhost:4000/images/honda.jpg" />
+
+  <ion-item>
+    <ion-label>
+      <h1>{{ event.start_date }} {{ event.start_time }}</h1>
+      <p>{{ event.description }}</p>
+    </ion-label>
+  </ion-item>
+
+</ion-content>

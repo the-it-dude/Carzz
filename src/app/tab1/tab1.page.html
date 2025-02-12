@@ -1,17 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Events
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-card *ngFor="let event of events" [button]="true" (click)="view_event(event.id)">
+    <img alt="Silhouette of mountains" src="http://localhost:4000/images/honda.jpg" />
+
+    <ion-card-header>
+      <ion-card-title>{{ event.title }} {{ event.start_date }} {{ event.start_time }}</ion-card-title>
+      <ion-card-subtitle><ion-badge>{{ event.type_name }}</ion-badge></ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ event.description }}
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
