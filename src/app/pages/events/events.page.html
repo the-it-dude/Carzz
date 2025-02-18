@@ -2,10 +2,10 @@
 
   <ion-toolbar>
     <ion-segment value="favorites">
-      <ion-segment-button value="favorites">
+      <ion-segment-button value="favorites" (click)="load_upcoming_events()">
         <ion-label>Upcoming</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="all">
+      <ion-segment-button value="all" (click)="load_user_events()">
         <ion-label>My</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -19,7 +19,23 @@
 
     <ion-card-header>
       <ion-card-title>{{ event.title }} {{ event.start_date }} {{ event.start_time }}</ion-card-title>
-      <ion-card-subtitle><ion-badge>{{ event.type_name }}</ion-badge></ion-card-subtitle>
+      <ion-card-subtitle>
+        <ion-badge color="secondary" *ngIf="event.status == 'published'">PUBLIC</ion-badge>
+        <ion-badge color="warning" *ngIf="event.status == 'private'">PRIVATE</ion-badge>
+        <ion-badge color="danger" *ngIf="event.status == 'draft'">DRAFT</ion-badge>
+        &nbsp;
+        <ion-badge>{{ event.type_name }}</ion-badge>
+        &nbsp;
+
+        <ion-badge color="primary">
+          <ion-icon name="eye-outline"></ion-icon>
+          {{ event.followers ? event.followers : 0 }}
+        </ion-badge>
+        <ion-badge color="primary">
+          <ion-icon name="basketball-outline"></ion-icon>
+          {{ event.participants ? event.participants : 0 }}
+        </ion-badge>
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>

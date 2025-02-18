@@ -9,6 +9,11 @@
       <ion-badge color="danger" *ngIf="event.status == 'draft'">DRAFT</ion-badge>
       {{ event.title }}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="mark_as_draft(event.id)" *ngIf="can_edit_event(event) && event.status != 'draft'">Mark as Draft</ion-button>
+      <ion-button color="success" (click)="publish(event.id)" *ngIf="can_edit_event(event) && event.status != 'published'">Publish</ion-button>
+      <ion-button color="warning" (click)="make_private(event.id)" *ngIf="can_edit_event(event) && event.status != 'private'">Make Private</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,6 +24,26 @@
     <ion-label>
       <h1>{{ event.start_date }} {{ event.start_time }}</h1>
       <p>{{ event.description }}</p>
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="!can_edit_event(event)">
+    <ion-label>
+      <ion-button size="small" fill="outline" *ngIf="event.role == 'follower'" (click)="unfollow(event.id)">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        Following
+      </ion-button>
+      <ion-button size="small" *ngIf="event.role == null" (click)="follow(event.id)">
+        <ion-icon slot="start" name="eye-outline"></ion-icon>
+        Follow
+      </ion-button>
+      <ion-button size="small" fill="outline" *ngIf="event.role == 'participant'" (click)="unfollow(event.id)">
+        <ion-icon slot="start" name="basketball-outline"></ion-icon>
+        Participating
+      </ion-button>
+      <ion-button size="small" *ngIf="['follower', null].includes(event.role)" color="secondary" (click)="participage(event.id)">
+        <ion-icon slot="start" name="basketball-outline"></ion-icon>
+        Participate
+      </ion-button>
     </ion-label>
   </ion-item>
 

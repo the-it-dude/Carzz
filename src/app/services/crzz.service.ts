@@ -72,6 +72,18 @@ export class CrzzService {
     )
   }
 
+  load_user_events() {
+    const headers: HttpHeaders = this.get_headers()
+    return this.httpClient.get(
+      this.baseUrl + "/api/events/my",
+      {
+        headers: headers
+      }
+    ).pipe(
+      map((data: any) => data.data)
+    )
+  }
+
   load_event(event_id: string) {
     const headers: HttpHeaders = this.get_headers()
     return this.httpClient.get(
@@ -112,6 +124,60 @@ export class CrzzService {
       }
     ).pipe(
       map((data: any) => data.data)
+    )
+  }
+
+  change_status(event_id: string, status: string) {
+    const data = {
+      event: {
+        status: status
+      }
+    }
+    const headers = this.get_headers()
+    return this.httpClient.put(
+      this.baseUrl + "/api/events/" + event_id,
+      data,
+      {
+        headers: headers
+      }
+    ).pipe(
+      map((data: any) => data.data)
+    )
+  }
+
+  unfollow(event_id: string) {
+    const headers = this.get_headers()
+    return this.httpClient.delete(
+      this.baseUrl + "/api/events/" + event_id + "/my-role",
+      {
+        headers: headers
+      }
+    )
+  }
+
+  follow(event_id: string) {
+    const headers = this.get_headers()
+    return this.httpClient.put(
+      this.baseUrl + "/api/events/" + event_id + "/my-role",
+      {
+        "role": "follower"
+      },
+      {
+        headers: headers
+      }
+    )
+  }
+
+  participate(event_id: string) {
+    const headers = this.get_headers()
+    return this.httpClient.put(
+      this.baseUrl + "/api/events/" + event_id + "/my-role",
+      {
+        "role": "participant"
+      },
+      {
+        headers: headers
+      }
     )
   }
 }

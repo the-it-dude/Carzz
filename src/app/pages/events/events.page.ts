@@ -19,7 +19,24 @@ export class EventsPage {
   ) {}
 
   ngOnInit() {
+    this.load_upcoming_events()
+  }
+
+  load_upcoming_events() {
+    this.events = [];
     this.crzzService.load_events().subscribe(
+      async (res) => {
+        this.events = res.map((event: any) => {
+          event["type_name"] = this.type_name(event["type"])
+          return event
+        })
+      }
+    )
+  }
+
+  load_user_events() {
+    this.events = [];
+    this.crzzService.load_user_events().subscribe(
       async (res) => {
         this.events = res.map((event: any) => {
           event["type_name"] = this.type_name(event["type"])
